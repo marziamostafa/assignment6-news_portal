@@ -1,5 +1,4 @@
 const loadAllCategory = (category_id) => {
-    // const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     const url = 'https://openapi.programming-hero.com/api/news/categories';
     fetch(url)
         .then(res => res.json())
@@ -23,7 +22,6 @@ const displayAllCategory = categories => {
 
 }
 const loadSingleCategory = (categoryId) => {
-    //     const url = 'https://openapi.programming-hero.com/api/news/category/01';
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
     fetch(url)
         .then(res => res.json())
@@ -50,7 +48,7 @@ const displaySingleCategory = newslist => {
                 <div class="card-body">
                     <h5 class="card-title">${allNews.title
             }</h5>
-                    <p class="card-text my-4" style="white-space:nowrap; overflow:hidden;  text-overflow:ellipsis;">${allNews.details}</p>
+                    <p class="card-text my-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; height: 4rem;">${allNews.details}</p>
                     <div class="d-flex align-items-center justify-content-between my-4">
                         <div class="d-flex align-items-center">
                             <img style="width:50px; height: 50px;" class="rounded-circle" src="${allNews.author.img}" alt="">
@@ -61,7 +59,7 @@ const displaySingleCategory = newslist => {
                             
                         </div>
                         <span>${allNews.total_view}</span>
-                        <button onclick="loadDetail()" class="text-bg-primary rounded">See More</button>
+                        <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +73,22 @@ const displaySingleCategory = newslist => {
 
 }
 
-const loadDetail = () => {
-    console.log('clicked');
+const loadDetail = (news_id) => {
+
+    const url = ` https://openapi.programming-hero.com/api/news/${news_id}`;
+
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayDetail(data.data[0]))
+        .catch(error => console.log(error));
+}
+const displayDetail = details => {
+    const modalTitle = document.getElementById('newsDetailModalLabel');
+    modalTitle.innerText = details.title;
+    const newsDetails = document.getElementById('news-details');
+    newsDetails.innerHTML = `
+    <p>${details.details} </p>
+    `;
 }
 loadAllCategory();
