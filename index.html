@@ -23,6 +23,7 @@
     </header>
 
     <main>
+
         <section class="bg-light container rounded px-3 my-2">
             <div id="category-container" class="d-flex justify-content-between ">
                 <div>
@@ -32,16 +33,28 @@
             </div>
 
         </section>
+
+        <!-- showing spinner -->
+        <section id="loader" class="d-none">
+            <div style="height:400px" class="d-flex justify-content-center align-items-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- showing news list -->
+        <section id="news-list" class="bg-light container rounded px-3 py-2 fw-semibold my-4">
+
+        </section>
+
+
         <section class="container">
             <div id="news-container">
 
             </div>
         </section>
         <section>
-            <!-- Button trigger modal -->
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">
-                Launch demo modal
-            </button> -->
             <!-- Modal -->
             <div class="modal fade" id="newsDetailModal" tabindex="-1" aria-labelledby="newsDetailModalLabel"
                 aria-hidden="true">
@@ -61,6 +74,8 @@
             </div>
         </section>
     </main>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

@@ -12,9 +12,9 @@ const displayAllCategory = categories => {
     categories.forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('flex')
-        // console.log(category);
+        //console.log(category);
         categoryDiv.innerHTML = `
-        <a class="nav-link py-2 fw-semibold " href="#" onclick="loadSingleCategory('${category.category_id}')">${category.category_name}</a>
+        <a class="nav-link py-2 fw-semibold " href="#" onclick="loadSingleCategory('${category.category_id}'),toggleSpinner(${true})">${category.category_name}</a>
         `;
 
         categoryContainer.appendChild(categoryDiv);
@@ -25,17 +25,33 @@ const loadSingleCategory = (categoryId) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => displaySingleCategory(data.data))
+        .then(data => (displaySingleCategory(data.data)))
         .catch(error => console.log(error))
 
 }
 const displaySingleCategory = newslist => {
-    // console.log(newslist);
+    const showNewsNo = document.getElementById('news-list')
+    const showNewsDiv = document.createElement('div');
+    showNewsNo.innerHTML = ``;
+    if (newslist.length === 0) {
+        showNewsDiv.innerHTML = `
+    <p>No news found</p>
+    `;
+        showNewsNo.appendChild(showNewsDiv);
+    }
+    else {
+        showNewsDiv.innerHTML = `
+    <p>${newslist.length} news found</p>
+    `;
+        showNewsNo.appendChild(showNewsDiv);
+    }
+
+    //console.log(newslist.length);
     const newsContainer = document.getElementById('news-container')
     newsContainer.innerHTML = ``;
     newslist.forEach(allNews => {
         const newsDiv = document.createElement('div');
-        // console.log(allNews);
+        //console.log(allNews);
 
         newsDiv.innerHTML = `
         <div class="card mb-3" style="width:100%; height: 18.8rem;">
@@ -70,8 +86,14 @@ const displaySingleCategory = newslist => {
      `;
         newsContainer.appendChild(newsDiv);
     })
+    toggleSpinner(false);
+}
+
+const loadNewsList = getListNews => {
+    //console.log(getListNews.length);
 
 }
+
 
 const loadDetail = (news_id) => {
 
@@ -91,4 +113,16 @@ const displayDetail = details => {
     <p>${details.details} </p>
     `;
 }
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none');
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
+}
+
 loadAllCategory();
+
