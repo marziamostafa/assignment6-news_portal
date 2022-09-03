@@ -1,4 +1,4 @@
-const loadAllCategory = (category_id) => {
+const loadAllCategory = () => {
     const url = 'https://openapi.programming-hero.com/api/news/categories';
     fetch(url)
         .then(res => res.json())
@@ -7,7 +7,7 @@ const loadAllCategory = (category_id) => {
         .catch(error => console.log(error));
 }
 const displayAllCategory = categories => {
-    console.log(categories[7]);
+    //console.log(categories[7]);
 
     const categoryContainer = document.getElementById('category-container');
     categories.forEach(category => {
@@ -38,13 +38,13 @@ const displaySingleCategory = newslist => {
     showNewsNo.innerHTML = ``;
     if (newslist.length === 0) {
         showNewsDiv.innerHTML = `
-    <p>No news found</p>
+    <p class="fs-3">No news found</p>
     `;
         showNewsNo.appendChild(showNewsDiv);
     }
     else {
         showNewsDiv.innerHTML = `
-    <p>${newslist.length} news found</p>
+    <p class="fs-3">${newslist.length} news found</p>
     `;
         showNewsNo.appendChild(showNewsDiv);
     }
@@ -55,14 +55,13 @@ const displaySingleCategory = newslist => {
         return b.total_view - a.total_view;
     });
     //console.log(newslist);
+    // const home = document.getElementById('home');
+
+    // home.textContent = `
+
+    //      `;
     newslist.forEach(allNews => {
         const newsDiv = document.createElement('div');
-        const home = document.getElementById('home');
-
-
-        home.textContent = `
-
-         `;
 
 
         newsDiv.innerHTML = `
@@ -72,23 +71,23 @@ const displaySingleCategory = newslist => {
                   <img src="${allNews.thumbnail_url
             }" class="img-fluid rounded-start h-100 w-100" alt="..." style:"height:400px;">
                   </div>
-                  <div class="col-md-7 h-60">
+                  <div class="col-md-7 ">
                     <div class="card-body">
                     <h5 class="card-title">${allNews.title
             }</h5>
-            <p class="card-text "style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${allNews.details}</p >
-            <div class="d-flex align-items-center justify-content-between ">
+            <p class="card-text mt-4"style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${allNews.details}</p >
+            <div class="d-flex align-items-center justify-content-between mt-4">
 
-                <div class="d-flex align-items-center">
-                    <img style="width:50px; height: 50px;" class="rounded-circle" src="${allNews.author.img}" alt="">
-                        <div>
-                            <p>${allNews.author.name ? allNews.author.name : "Not found"}</p>
-                            <p>${allNews.author.published_date}</p>
+                <div class="d-flex align-items-center justify-content-center ">
+                    <img style="width:40px; height: 40px;" class="rounded-circle" src="${allNews.author.img ? allNews.author.img : 'Not found'}" alt="">
+                        <div class="d-flex flex-column" style="width:100px; height: 50px;">
+                            <small>${allNews.author.name ? allNews.author.name : "Not found"}</small>
+                            <small>${allNews.author.published_date ? allNews.author.published_date : 'Not found'}</small>
                         </div>
 
                 </div>
-                <span><i class="fa-solid fa-eye"></i>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
-                <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
+                <span><i class="fa-solid fa-eye"></i><b>${allNews.total_view ? allNews.total_view : 'Not found'}</b></span>
+                <h2 class="fs-6" data-bs-toggle="modal" data-bs-target="#newsDetailModal" > <i  onclick="loadDetail('${allNews._id}')" class="fa-solid fa-arrow-right "></i></h2>
             </div>
                     </div >
                   </div >
@@ -131,8 +130,6 @@ const toggleSpinner = isLoading => {
     }
 }
 
-// document.getElementById('home').addEventListener('mouseenter', function () {
-
-// })
 loadAllCategory();
+loadSingleCategory('08');
 
