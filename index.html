@@ -27,9 +27,10 @@
     <main>
         <!-- adding categories -->
         <section class="bg-light container rounded px-3 my-2">
-            <div id="category-container" class="d-flex justify-content-between ">
+            <div id="category-container"
+                class="d-lg-flex flex-sm-wrap order-sm-4 align-content-start justify-content-between align-items-center">
                 <div>
-                    <a class="nav-link py-2 fw-semibold " href="">Home</a>
+                    <a id="home" class="nav-link py-2 fw-semibold " href="">Home</a>
                 </div>
 
             </div>
@@ -46,14 +47,16 @@
         </section>
 
         <!-- showing news list -->
-        <section id="news-list" class="bg-light container rounded px-3 py-2 fw-semibold my-4">
+        <section class="container my-4">
+            <div id="news-list">
 
+            </div>
         </section>
 
         <!-- showing all news according to the category -->
 
         <section class="container">
-            <div id="news-container">
+            <div id="news-container" class="row row-cols-1 row-cols-lg-2 g-4">
 
             </div>
         </section>
@@ -71,7 +74,7 @@
                         </div>
                         <div id="news-details" class="modal-body">
                         </div>
-                        <div class="modal-footer">
+                        <div tex class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -80,7 +83,9 @@
         </section>
     </main>
 
-
+    <footer class="bg-light container rounded px-3 my-2 align-middle" style="height:10rem">
+        <p class="text-center pt-5">Copyright 2021 News Today</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

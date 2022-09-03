@@ -7,7 +7,8 @@ const loadAllCategory = (category_id) => {
         .catch(error => console.log(error));
 }
 const displayAllCategory = categories => {
-    //console.log(categories);
+    console.log(categories[7]);
+
     const categoryContainer = document.getElementById('category-container');
     categories.forEach(category => {
         const categoryDiv = document.createElement('div');
@@ -53,40 +54,47 @@ const displaySingleCategory = newslist => {
     newslist.sort((a, b) => {
         return b.total_view - a.total_view;
     });
-
+    //console.log(newslist);
     newslist.forEach(allNews => {
         const newsDiv = document.createElement('div');
+        const home = document.getElementById('home');
+
+
+        home.textContent = `
+
+         `;
+
+
         newsDiv.innerHTML = `
-        <div class="card mb-3" style="width:100%; height: 18.8rem;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="${allNews.thumbnail_url
-            }" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8"">
-                <div class="card-body">
+                <div class="card mb-3" style="max-width: 540px; ">
+                <div class="row g-0">
+                  <div class="col-md-5">
+                  <img src="${allNews.thumbnail_url
+            }" class="img-fluid rounded-start h-100 w-100" alt="..." style:"height:400px;">
+                  </div>
+                  <div class="col-md-7 h-60">
+                    <div class="card-body">
                     <h5 class="card-title">${allNews.title
             }</h5>
-                    <p class="card-text my-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; height: 4rem;">${allNews.details}</p>
-                    <div class="d-flex align-items-center justify-content-between my-4">
-                        <div class="d-flex align-items-center">
-                            <img style="width:50px; height: 50px;" class="rounded-circle" src="${allNews.author.img}" alt="">
-                            <div class="d-block -g-2"> 
+            <p class="card-text "style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${allNews.details}</p >
+            <div class="d-flex align-items-center justify-content-between ">
+
+                <div class="d-flex align-items-center">
+                    <img style="width:50px; height: 50px;" class="rounded-circle" src="${allNews.author.img}" alt="">
+                        <div>
                             <p>${allNews.author.name ? allNews.author.name : "Not found"}</p>
                             <p>${allNews.author.published_date}</p>
-                            </div>
-                            
                         </div>
-                        <span><i class="fa-solid fa-eye"></i>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
-                        <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
-                    </div>
+
                 </div>
+                <span><i class="fa-solid fa-eye"></i>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
+                <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
             </div>
-
-        </div>
-
-    </div>
-     `;
+                    </div >
+                  </div >
+                </div >
+              </div >
+    `;
         newsContainer.appendChild(newsDiv);
     })
     //spinner stopped
@@ -123,5 +131,8 @@ const toggleSpinner = isLoading => {
     }
 }
 
+// document.getElementById('home').addEventListener('mouseenter', function () {
+
+// })
 loadAllCategory();
 
