@@ -21,6 +21,8 @@ const displayAllCategory = categories => {
     });
 
 }
+
+//showing all news according to the category
 const loadSingleCategory = (categoryId) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
     fetch(url)
@@ -45,14 +47,15 @@ const displaySingleCategory = newslist => {
     `;
         showNewsNo.appendChild(showNewsDiv);
     }
-
     //console.log(newslist.length);
     const newsContainer = document.getElementById('news-container')
     newsContainer.innerHTML = ``;
+    newslist.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
+
     newslist.forEach(allNews => {
         const newsDiv = document.createElement('div');
-        //console.log(allNews);
-
         newsDiv.innerHTML = `
         <div class="card mb-3" style="width:100%; height: 18.8rem;">
         <div class="row g-0">
@@ -69,12 +72,12 @@ const displaySingleCategory = newslist => {
                         <div class="d-flex align-items-center">
                             <img style="width:50px; height: 50px;" class="rounded-circle" src="${allNews.author.img}" alt="">
                             <div class="d-block -g-2"> 
-                            <p>${allNews.author.name}</p>
+                            <p>${allNews.author.name ? allNews.author.name : "Not found"}</p>
                             <p>${allNews.author.published_date}</p>
                             </div>
                             
                         </div>
-                        <span>${allNews.total_view}</span>
+                        <span>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
                         <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
                     </div>
                 </div>
@@ -86,20 +89,13 @@ const displaySingleCategory = newslist => {
      `;
         newsContainer.appendChild(newsDiv);
     })
+    //spinner stopped
     toggleSpinner(false);
 }
-
-const loadNewsList = getListNews => {
-    //console.log(getListNews.length);
-
-}
-
-
+//showing news details
 const loadDetail = (news_id) => {
 
     const url = ` https://openapi.programming-hero.com/api/news/${news_id}`;
-
-
     fetch(url)
         .then(res => res.json())
         .then(data => displayDetail(data.data[0]))
@@ -107,13 +103,16 @@ const loadDetail = (news_id) => {
 }
 const displayDetail = details => {
     const modalTitle = document.getElementById('newsDetailModalLabel');
-    modalTitle.innerText = details.title;
+    modalTitle.innerHTML = `<p>Author: ${details.author.name ? details.author.name : 'author name not found'}
+   </p> `;
     const newsDetails = document.getElementById('news-details');
     newsDetails.innerHTML = `
+    <p><b>Published on: ${details.author.published_date ? details.author.published_date : 'no date found'} <br>Rating:${details.rating.number}<br>Views:${details.total_view ? details.total_view : 'Not found'}</b></p>
     <p>${details.details} </p>
     `;
 }
 
+//adding spinner
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
     if (isLoading) {
