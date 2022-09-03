@@ -77,7 +77,7 @@ const displaySingleCategory = newslist => {
                             </div>
                             
                         </div>
-                        <span>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
+                        <span><i class="fa-solid fa-eye"></i>${allNews.total_view ? allNews.total_view : 'Not found'}</span>
                         <button onclick="loadDetail('${allNews._id}')" type="button" class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#newsDetailModal" >Details</button>
                     </div>
                 </div>
